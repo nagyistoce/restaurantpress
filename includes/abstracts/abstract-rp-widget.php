@@ -61,26 +61,6 @@ abstract class RP_Widget extends WP_Widget {
 		add_action( 'save_post', array( $this, 'flush_widget_cache' ) );
 		add_action( 'deleted_post', array( $this, 'flush_widget_cache' ) );
 		add_action( 'switch_theme', array( $this, 'flush_widget_cache' ) );
-		add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
-	}
-
-	public function admin_print_styles() { ?>
-		<style type="text/css">
-			#image_upload_widget_thumbnail {
-				float: left;
-				margin-right: 10px;
-			}
-
-			#image_upload_widget_thumbnail img {
-				margin: 0;
-				width: auto;
-				height: auto;
-				max-width: 60px;
-				max-height: 60px;
-				vertical-align: middle;
-			}
-		</style>
-		<?php
 	}
 
 	/**
