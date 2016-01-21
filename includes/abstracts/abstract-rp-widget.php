@@ -61,6 +61,26 @@ abstract class RP_Widget extends WP_Widget {
 		add_action( 'save_post', array( $this, 'flush_widget_cache' ) );
 		add_action( 'deleted_post', array( $this, 'flush_widget_cache' ) );
 		add_action( 'switch_theme', array( $this, 'flush_widget_cache' ) );
+		add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
+	}
+
+	public function admin_print_styles() { ?>
+		<style type="text/css">
+			#image_upload_widget_thumbnail {
+				float: left;
+				margin-right: 10px;
+			}
+
+			#image_upload_widget_thumbnail img {
+				margin: 0;
+				width: auto;
+				height: auto;
+				max-width: 60px;
+				max-height: 60px;
+				vertical-align: middle;
+			}
+		</style>
+		<?php
 	}
 
 	/**
@@ -254,6 +274,27 @@ abstract class RP_Widget extends WP_Widget {
 						<input class="checkbox <?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" type="checkbox" value="1" <?php checked( $value, 1 ); ?> />
 						<label for="<?php echo $this->get_field_id( $key ); ?>"><?php echo $setting['label']; ?></label>
 					</p>
+					<?php
+				break;
+
+				case 'image_upload':
+					?>
+					<p>
+						<label for="<?php echo $this->get_field_id( $key ); ?>"><?php echo $setting['label']; ?></label>
+
+						<div id="image_upload_widget_thumbnail"><img src="<?php echo esc_url( rp_placeholder_img_src() ); ?>" width="60px" height="60px" /></div>
+						<div style="line-height: 60px;">
+							<input type="hidden" id="food_menu_cat_thumbnail_id" name="food_menu_cat_thumbnail_id" />
+							<button type="button" class="upload_image_button button"><?php _e( 'Upload/Add image', 'restaurantpress' ); ?></button>
+							<button type="button" class="remove_image_button button"><?php _e( 'Remove image', 'restaurantpress' ); ?></button>
+							<div class="clear"></div>
+						</div>
+						<?php if ( isset( $setting['desc'] ) ) : ?>
+							<small><?php echo esc_html( $setting['desc'] ); ?></small>
+						<?php endif; ?>
+						<div class="clear"></div>
+					</p>
+
 					<?php
 				break;
 
