@@ -170,6 +170,9 @@ abstract class RP_Widget extends WP_Widget {
 				case 'checkbox' :
 					$instance[ $key ] = is_null( $new_instance[ $key ] ) ? 0 : 1;
 				break;
+				case 'image_upload' :
+					$instance[ $key ] = esc_url_raw( $new_instance[ $key ] );
+				break;
 				default:
 					$instance[ $key ] = sanitize_text_field( $new_instance[ $key ] );
 				break;
